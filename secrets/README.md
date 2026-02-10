@@ -1,10 +1,10 @@
-# VPN secrets (sops-nix)
+# Секреты VPN (sops-nix)
 
-1. On first rebuild, `sops-nix` will generate a host age key at:
+1. При первой сборке `sops-nix` автоматически создаст age-ключ хоста по пути:
    `/var/lib/sops-nix/key.txt`
-2. Encrypt the template into the real file:
+2. Зашифруйте шаблон в реальный файл:
    `sops -e secrets/vpn.yaml.example > secrets/vpn.yaml`
-3. Keep `secrets/vpn.yaml` encrypted in git.
+3. Храните `secrets/vpn.yaml` в git только в зашифрованном виде.
 
-Expected keys:
+Ожидаемые ключи:
 - `vpn/singbox_uuid`
