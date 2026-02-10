@@ -15,53 +15,42 @@
 ping -c 3 nixos.org
 ```
 
-## 2. Разметьте диск и смонтируйте разделы
+## 2. Разметьте диск через Disko
 
-Пример для диска `/dev/nvme0n1` (UEFI, btrfs). Все данные на диске будут удалены.
+Используется Disko: https://nixos.wiki/wiki/Disko  
+Все данные на целевом диске будут удалены.
 
-```bash
-parted /dev/nvme0n1 -- mklabel gpt
-parted /dev/nvme0n1 -- mkpart ESP fat32 1MiB 513MiB
-parted /dev/nvme0n1 -- set 1 esp on
-parted /dev/nvme0n1 -- mkpart primary 513MiB 100%
+В репозитории есть 2 готовых конфига:
 
-mkfs.fat -F 32 /dev/nvme0n1p1
-mkfs.btrfs -f /dev/nvme0n1p2
+- `disko/tsunami.nix` для физической машины (`/dev/nvme0n1`)
+- `disko/vbox.nix` для VirtualBox (`/dev/sda`)
 
-# создаем subvolume'ы
-mount /dev/nvme0n1p2 /mnt
-btrfs subvolume create /mnt/@
-btrfs subvolume create /mnt/@home
-umount /mnt
-
-# монтируем subvolume'ы
-mount -o subvol=@ /dev/nvme0n1p2 /mnt
-mkdir -p /mnt/home
-mount -o subvol=@home /dev/nvme0n1p2 /mnt/home
-mkdir -p /mnt/boot
-mount /dev/nvme0n1p1 /mnt/boot
-```
-
-## 3. Сгенерируйте hardware-конфиг
+## 3. Получите репозиторий и запустите Disko
 
 ```bash
-nixos-generate-config --root /mnt
-```
-
-Скопируйте `hardware-configuration.nix` в этот репозиторий:
-
-```bash
-cp /mnt/etc/nixos/hardware-configuration.nix /tmp/hardware-configuration.nix
-```
-
-## 4. Получите репозиторий и добавьте hardware-конфиг
-
-```bash
-cd /mnt
+cd /tmp
 nix-shell -p git
 git clone <URL_ЭТОГО_РЕПО> nix
 cd nix
-cp /tmp/hardware-configuration.nix ./hosts/tsunami/hardware-configuration.nix
+```
+
+Запустите Disko (пример для `tsunami`):
+
+```bash
+nix run github:nix-community/disko/latest -- --mode disko ./disko/tsunami.nix
+```
+
+Для VirtualBox используйте:
+
+```bash
+nix run github:nix-community/disko/latest -- --mode disko ./disko/vbox.nix
+```
+
+## 4. Сгенерируйте hardware-конфиг и добавьте в репозиторий
+
+```bash
+nixos-generate-config --root /mnt
+cp /mnt/etc/nixos/hardware-configuration.nix ./hosts/tsunami/hardware-configuration.nix
 ```
 
 Добавьте импорт в `hosts/tsunami/configuration.nix`:
@@ -76,7 +65,7 @@ imports = [
 ## 5. Поставьте систему из flake
 
 ```bash
-nixos-install --flake /mnt/nix#tsunami
+nixos-install --flake /tmp/nix#tsunami
 ```
 
 Во время установки задайте пароль `root`, если установщик попросит.
