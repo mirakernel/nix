@@ -2,6 +2,7 @@
   imports = [ ../../modules/nixos/pantheon.nix ];
 
   system.stateVersion = "25.11";
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   my.pantheon.enable = true;
 

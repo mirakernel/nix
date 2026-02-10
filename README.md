@@ -37,13 +37,13 @@ cd nix
 Запустите Disko (пример для `tsunami`):
 
 ```bash
-nix run github:nix-community/disko/latest -- --mode disko ./disko/tsunami.nix
+nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko ./disko/tsunami.nix
 ```
 
 Для VirtualBox используйте:
 
 ```bash
-nix run github:nix-community/disko/latest -- --mode disko ./disko/vbox.nix
+nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko ./disko/vbox.nix
 ```
 
 ## 4. Сгенерируйте hardware-конфиг и добавьте в репозиторий
@@ -65,7 +65,7 @@ imports = [
 ## 5. Поставьте систему из flake
 
 ```bash
-nixos-install --flake /tmp/nix#tsunami
+nixos-install --flake /tmp/nix#tsunami --extra-experimental-features "nix-command flakes"
 ```
 
 Во время установки задайте пароль `root`, если установщик попросит.
@@ -91,14 +91,14 @@ passwd kira
 
 ```bash
 cd ~/nix
-nix flake update
-sudo nixos-rebuild switch --flake .#tsunami
+nix --extra-experimental-features "nix-command flakes" flake update
+sudo NIX_CONFIG="experimental-features = nix-command flakes" nixos-rebuild switch --flake .#tsunami
 ```
 
 Для Home Manager:
 
 ```bash
-home-manager switch --flake .#kira
+NIX_CONFIG="experimental-features = nix-command flakes" home-manager switch --flake .#kira
 ```
 
 ## Примечания
