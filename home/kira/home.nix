@@ -5,7 +5,16 @@
 
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      extra-substituters = [
+        "https://mirror.yandex.ru/nixos/"
+        "https://cache.nixos.org/"
+      ];
+      extra-trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypb7GmY0+E5d8Xl8v8M8x0Gv6U="
+      ];
+    };
   };
 
   programs.home-manager.enable = true;
