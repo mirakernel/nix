@@ -42,7 +42,7 @@
       extraSpecialArgs = { inherit nur; };
       modules = [
         nixvim.homeModules.nixvim
-        plasma-manager.homeManagerModules.plasma-manager
+        plasma-manager.homeModules.plasma-manager
         ./home/kira/home.nix
       ];
     };

@@ -61,7 +61,7 @@
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
     nixvim.homeModules.nixvim
-    plasma-manager.homeManagerModules.plasma-manager
+    plasma-manager.homeModules.plasma-manager
   ];
   home-manager.extraSpecialArgs = { inherit nur; };
   home-manager.users.kira = import ../../home/kira/home.nix;
