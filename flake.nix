@@ -15,7 +15,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, sops-nix, nixvim, ... }: let
+  outputs = { nixpkgs, home-manager, sops-nix, nixvim, nur, ... }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -28,11 +28,12 @@
         home-manager.nixosModules.home-manager
         ./hosts/tsunami/configuration.nix
       ];
-      specialArgs = { inherit nixvim; };
+      specialArgs = { inherit nixvim nur; };
     };
 
     homeConfigurations.kira = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
+      extraSpecialArgs = { inherit nur; };
       modules = [
         nixvim.homeManagerModules.nixvim
         ./home/kira/home.nix

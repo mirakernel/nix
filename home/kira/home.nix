@@ -5,6 +5,10 @@
     ../../modules/home-manager/git.nix
     ../../modules/home-manager/syncthing.nix
     ../../modules/home-manager/nixvim.nix
+    ../../modules/home-manager/tmux.nix
+    ../../modules/home-manager/passwd.nix
+    ../../modules/home-manager/user-dirs.nix
+    ../../modules/home-manager/fonts.nix
   ];
 
   home.username = "kira";

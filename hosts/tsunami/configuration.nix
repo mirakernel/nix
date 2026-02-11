@@ -1,4 +1,4 @@
-{ pkgs, nixvim, ... }: {
+{ pkgs, nixvim, nur, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/pantheon.nix
@@ -49,5 +49,6 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [ nixvim.homeManagerModules.nixvim ];
+  home-manager.extraSpecialArgs = { inherit nur; };
   home-manager.users.kira = import ../../home/kira/home.nix;
 }
