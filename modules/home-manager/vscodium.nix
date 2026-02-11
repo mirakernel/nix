@@ -7,22 +7,24 @@
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
-      extensions = with pkgs.vscode-extensions; [
-        ms-ceintl.vscode-language-pack-ru
-        # Rust
-        rust-lang.rust-analyzer
-        tamasfe.even-better-toml
-        serayuzgur.crates
-        vadimcn.vscode-lldb
-      ];
-      userSettings = {
-        "update.mode" = "none";
-        "telemetry.telemetryLevel" = "off";
-        "extensions.autoUpdate" = false;
-        "extensions.autoCheckUpdates" = false;
-        "files.trimTrailingWhitespace" = true;
-        "editor.formatOnSave" = true;
-        "editor.fontFamily" = "JetBrainsMono Nerd Font";
+      profiles.default = {
+        extensions = with pkgs.vscode-extensions; [
+          ms-ceintl.vscode-language-pack-ru
+          # Rust
+          rust-lang.rust-analyzer
+          tamasfe.even-better-toml
+          serayuzgur.crates
+          vadimcn.vscode-lldb
+        ];
+        userSettings = {
+          "update.mode" = "none";
+          "telemetry.telemetryLevel" = "off";
+          "extensions.autoUpdate" = false;
+          "extensions.autoCheckUpdates" = false;
+          "files.trimTrailingWhitespace" = true;
+          "editor.formatOnSave" = true;
+          "editor.fontFamily" = "JetBrainsMono Nerd Font";
+        };
       };
     };
 
