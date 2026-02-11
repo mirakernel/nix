@@ -51,6 +51,8 @@ in {
   config = lib.mkIf cfg.enable {
     services.xserver.enable = true;
     services.xserver.displayManager.lightdm.enable = true;
+    services.displayManager.autoLogin.enable = true;
+    services.displayManager.autoLogin.user = "kira";
     services.displayManager.defaultSession = "pantheon-wayland";
     services.desktopManager.pantheon.enable = true;
 
