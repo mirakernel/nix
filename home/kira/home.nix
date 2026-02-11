@@ -7,6 +7,7 @@
     ../../modules/home-manager/syncthing.nix
     ../../modules/home-manager/nixvim.nix
     ../../modules/home-manager/tmux.nix
+    ../../modules/home-manager/term.nix
     ../../modules/home-manager/vpn.nix
     ../../modules/home-manager/passwd.nix
     ../../modules/home-manager/user-dirs.nix
