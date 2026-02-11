@@ -21,6 +21,8 @@
     options = "grp:alt_shift_toggle";
   };
 
+  boot.loader.grub.devices = [ "nodev" ];
+
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     extra-substituters = [
