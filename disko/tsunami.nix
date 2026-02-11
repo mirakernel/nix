@@ -19,14 +19,18 @@
           root = {
             size = "100%";
             content = {
-              type = "btrfs";
-              extraArgs = [ "-f" ];
-              subvolumes = {
-                "@" = {
-                  mountpoint = "/";
-                };
-                "@home" = {
-                  mountpoint = "/home";
+              type = "luks";
+              name = "cryptroot";
+              content = {
+                type = "btrfs";
+                extraArgs = [ "-f" ];
+                subvolumes = {
+                  "@" = {
+                    mountpoint = "/";
+                  };
+                  "@home" = {
+                    mountpoint = "/home";
+                  };
                 };
               };
             };

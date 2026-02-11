@@ -22,7 +22,7 @@ ping -c 3 nixos.org
 
 В репозитории есть 2 готовых конфига:
 
-- `disko/tsunami.nix` для физической машины (`/dev/nvme0n1`)
+- `disko/tsunami.nix` для физической машины (`/dev/nvme0n1`, LUKS-шифрование root)
 - `disko/vbox.nix` для VirtualBox (`/dev/sda`)
 
 ## 3. Получите репозиторий и запустите Disko
@@ -40,6 +40,8 @@ cd nixos
 ```bash
 sudo nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode disko ./disko/tsunami.nix
 ```
+
+Для `tsunami` Disko попросит ввести LUKS-пароль (шифрование root-раздела).
 
 Для VirtualBox используйте:
 
