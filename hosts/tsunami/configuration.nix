@@ -1,5 +1,8 @@
 { pkgs, ... }: {
-  imports = [ ../../modules/nixos/pantheon.nix ];
+  imports = [
+    ../../modules/nixos/pantheon.nix
+    ../../modules/nixos/virt.nix
+  ];
 
   system.stateVersion = "25.11";
   nix.settings = {
@@ -14,6 +17,8 @@
   };
 
   my.pantheon.enable = true;
+  virt.kvm.enable = true;
+  virt.vbox.enable = true;
 
   users.users.kira = {
     isNormalUser = true;
