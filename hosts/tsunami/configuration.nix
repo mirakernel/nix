@@ -59,6 +59,7 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.backupFileExtension = "bak";
   home-manager.sharedModules = [
     nixvim.homeModules.nixvim
     plasma-manager.homeModules.plasma-manager
