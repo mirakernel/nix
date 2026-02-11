@@ -21,7 +21,14 @@
     options = "grp:alt_shift_toggle";
   };
 
-  boot.loader.grub.devices = [ "nodev" ];
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      efiSupport = true;
+      devices = [ "nodev" ];
+    };
+  };
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
