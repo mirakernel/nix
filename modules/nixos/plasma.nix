@@ -26,6 +26,7 @@ in {
       kdePackages.kcalc
       kdePackages.spectacle
       kdePackages.plasma-nm
+      kdePackages.bluedevil
     ] ++ cfg.extraPackages;
   };
 }

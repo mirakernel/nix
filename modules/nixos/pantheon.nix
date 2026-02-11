@@ -19,6 +19,7 @@ let
     (packageFrom [ [ "pantheon" "photos" ] [ "pantheon-photos" ] ])
     (packageFrom [ [ "pantheon" "code" ] [ "pantheon-code" ] [ "elementary-code" ] ])
     (packageFrom [ [ "pantheon" "screenshot" ] [ "pantheon-screenshot" ] ])
+    (packageFrom [ [ "pantheon" "elementary-bluetooth" ] [ "elementary-bluetooth" ] [ "pantheon" "bluetooth" ] ])
   ];
 
   themePackages = lib.concatLists [

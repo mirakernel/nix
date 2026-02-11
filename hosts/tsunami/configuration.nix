@@ -9,6 +9,7 @@
 
   system.stateVersion = "25.11";
   nixpkgs.config.allowUnfree = true;
+  time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "ru_RU.UTF-8";
   i18n.supportedLocales = [ "ru_RU.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
 
@@ -43,7 +44,6 @@
     enable = true;
     powerOnBoot = true;
   };
-  services.blueman.enable = true;
   graphicalTablet.enable = true;
   virt.kvm.enable = true;
   virt.vbox.enable = false;
