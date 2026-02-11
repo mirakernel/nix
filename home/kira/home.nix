@@ -12,6 +12,7 @@
     ../../modules/home-manager/passwd.nix
     ../../modules/home-manager/user-dirs.nix
     ../../modules/home-manager/fonts.nix
+    ../../modules/home-manager/plasma.nix
   ];
 
   home.username = "kira";
@@ -29,6 +30,7 @@
   };
 
   programs.home-manager.enable = true;
+  my.hm.plasma.enable = true;
 
   programs.zsh = {
     enable = true;

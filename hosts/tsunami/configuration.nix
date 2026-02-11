@@ -1,7 +1,7 @@
-{ pkgs, nixvim, nur, ... }: {
+{ pkgs, nixvim, nur, plasma-manager, ... }: {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/pantheon.nix
+    ../../modules/nixos/plasma.nix
     ../../modules/nixos/virt.nix
     ../../modules/nixos/container.nix
     ../../modules/nixos/graphical-tablet.nix
@@ -38,7 +38,7 @@
     ];
   };
 
-  my.pantheon.enable = true;
+  my.plasma.enable = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -59,7 +59,10 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  home-manager.sharedModules = [ nixvim.homeModules.nixvim ];
+  home-manager.sharedModules = [
+    nixvim.homeModules.nixvim
+    plasma-manager.homeManagerModules.plasma-manager
+  ];
   home-manager.extraSpecialArgs = { inherit nur; };
   home-manager.users.kira = import ../../home/kira/home.nix;
 }

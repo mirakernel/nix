@@ -5,6 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nur.url = "github:nix-community/NUR";
     sops-nix.url = "github:Mic92/sops-nix";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,7 +20,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, sops-nix, nixvim, nur, ... }: let
+  outputs = { nixpkgs, home-manager, sops-nix, plasma-manager, nixvim, nur, ... }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -29,7 +34,7 @@
         home-manager.nixosModules.home-manager
         ./hosts/tsunami/configuration.nix
       ];
-      specialArgs = { inherit nixvim nur; };
+      specialArgs = { inherit nixvim nur plasma-manager; };
     };
 
     homeConfigurations.kira = home-manager.lib.homeManagerConfiguration {
@@ -37,6 +42,7 @@
       extraSpecialArgs = { inherit nur; };
       modules = [
         nixvim.homeModules.nixvim
+        plasma-manager.homeManagerModules.plasma-manager
         ./home/kira/home.nix
       ];
     };
