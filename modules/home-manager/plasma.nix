@@ -4,6 +4,12 @@
   };
 
   config = lib.mkIf config.my.hm.plasma.enable {
+    xdg.configFile."konsolerc".source = ../../config/konsole/konsolerc;
+    xdg.configFile."konsolesshconfig".source = ../../config/konsole/konsolesshconfig;
+    xdg.dataFile."konsole/Mirakernel.colorscheme".source = ../../config/konsole/Mirakernel.colorscheme;
+    xdg.dataFile."konsole/main.profile".source = ../../config/konsole/main.profile;
+    xdg.dataFile."user-places.xbel".source = ../../config/dolphin/user-places.xbel;
+
     programs.plasma = {
       enable = true;
       shortcuts = {

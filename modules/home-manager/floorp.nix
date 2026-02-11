@@ -1,4 +1,4 @@
-{ pkgs, nur, ... }:
+{ config, pkgs, nur, ... }:
 let
   nurPkgs =
     if nur ? legacyPackages then
@@ -31,6 +31,9 @@ in {
         "browser.startup.page" = 3;
         "browser.startup.homepage" = "https://search.nixos.org/";
         "browser.newtabpage.enabled" = true;
+        "browser.download.dir" = config.xdg.userDirs.download;
+        "browser.download.folderList" = 2;
+        "browser.download.useDownloadDir" = true;
         "privacy.donottrackheader.enabled" = true;
         "privacy.trackingprotection.enabled" = true;
         "network.proxy.type" = 1;

@@ -2,6 +2,7 @@
   imports = [
     ../../modules/home-manager/art.nix
     ../../modules/home-manager/ai.nix
+    ../../modules/home-manager/apps.nix
     ../../modules/home-manager/floorp.nix
     ../../modules/home-manager/git.nix
     ../../modules/home-manager/syncthing.nix
