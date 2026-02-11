@@ -9,7 +9,7 @@ let
 in {
   programs.floorp = {
     enable = true;
-    languagePacks = [ "ru-RU" ];
+    languagePacks = [ "ru" ];
 
     policies = {
       DisableTelemetry = true;

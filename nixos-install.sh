@@ -143,7 +143,7 @@ if ! grep -qF "./hardware-configuration.nix" "${HOST_CONFIG}"; then
 fi
 
 echo "[4/4] Installing NixOS from flake..."
-nixos-install --flake "${SCRIPT_DIR}#${HOST}" --extra-experimental-features "nix-command flakes"
+nixos-install --flake "${SCRIPT_DIR}#${HOST}"
 
 echo
 echo "Install completed for host '${HOST}'."

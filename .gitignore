@@ -2,9 +2,6 @@
 result
 result-*
 
-# NixOS hardware config generated on target host
-hardware-configuration.nix
-
 # direnv
 .envrc
 .direnv/

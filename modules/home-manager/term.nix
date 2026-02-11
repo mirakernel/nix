@@ -4,7 +4,7 @@
     settings = {
       font = {
         normal = {
-          family = "JetBrains Mono";
+          family = "JetBrainsMono Nerd Font";
         };
       };
       window = {
