@@ -51,8 +51,8 @@ in {
   config = lib.mkIf cfg.enable {
     services.xserver.enable = true;
     services.xserver.displayManager.lightdm.enable = true;
-    services.xserver.displayManager.defaultSession = "pantheon-wayland";
-    services.xserver.desktopManager.pantheon.enable = true;
+    services.displayManager.defaultSession = "pantheon-wayland";
+    services.desktopManager.pantheon.enable = true;
 
     environment.systemPackages = elementaryApps ++ themePackages ++ cfg.extraPackages;
 

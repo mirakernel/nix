@@ -36,7 +36,7 @@
       inherit pkgs;
       extraSpecialArgs = { inherit nur; };
       modules = [
-        nixvim.homeManagerModules.nixvim
+        nixvim.homeModules.nixvim
         ./home/kira/home.nix
       ];
     };

@@ -3,7 +3,7 @@
     enable = true;
     lfs.enable = true;
 
-    extraConfig = {
+    settings = {
       init.defaultBranch = "main";
       pull.rebase = false;
       push.autoSetupRemote = true;

@@ -37,7 +37,7 @@
   my.pantheon.enable = true;
   graphicalTablet.enable = true;
   virt.kvm.enable = true;
-  virt.vbox.enable = true;
+  virt.vbox.enable = false;
   container.docker.enable = true;
 
   users.users.kira = {
@@ -50,7 +50,7 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  home-manager.sharedModules = [ nixvim.homeManagerModules.nixvim ];
+  home-manager.sharedModules = [ nixvim.homeModules.nixvim ];
   home-manager.extraSpecialArgs = { inherit nur; };
   home-manager.users.kira = import ../../home/kira/home.nix;
 }

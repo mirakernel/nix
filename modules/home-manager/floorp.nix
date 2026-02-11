@@ -2,9 +2,9 @@
 let
   nurPkgs =
     if nur ? legacyPackages then
-      nur.legacyPackages.${pkgs.system}
+      nur.legacyPackages.${pkgs.stdenv.hostPlatform.system}
     else
-      nur.packages.${pkgs.system};
+      nur.packages.${pkgs.stdenv.hostPlatform.system};
   addons = nurPkgs.repos.rycee.firefox-addons;
 in {
   programs.floorp = {
