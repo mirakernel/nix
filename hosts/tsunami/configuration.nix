@@ -12,7 +12,6 @@
   i18n.supportedLocales = [ "ru_RU.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
 
   console = {
-    keyMap = "ruwin_alt_sh-UTF-8";
     useXkbConfig = true;
   };
 
