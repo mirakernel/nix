@@ -1,11 +1,26 @@
-{ pkgs, ... }: {
+{ pkgs, nixvim, ... }: {
   imports = [
+    ./hardware-configuration.nix
     ../../modules/nixos/pantheon.nix
     ../../modules/nixos/virt.nix
     ../../modules/nixos/container.nix
+    ../../modules/nixos/graphical-tablet.nix
   ];
 
   system.stateVersion = "25.11";
+  i18n.defaultLocale = "ru_RU.UTF-8";
+  i18n.supportedLocales = [ "ru_RU.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
+
+  console = {
+    keyMap = "ruwin_alt_sh-UTF-8";
+    useXkbConfig = true;
+  };
+
+  services.xserver.xkb = {
+    layout = "us,ru";
+    options = "grp:alt_shift_toggle";
+  };
+
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     extra-substituters = [
@@ -18,6 +33,7 @@
   };
 
   my.pantheon.enable = true;
+  graphicalTablet.enable = true;
   virt.kvm.enable = true;
   virt.vbox.enable = true;
   container.docker.enable = true;
@@ -32,5 +48,6 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.sharedModules = [ nixvim.homeManagerModules.nixvim ];
   home-manager.users.kira = import ../../home/kira/home.nix;
 }

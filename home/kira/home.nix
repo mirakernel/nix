@@ -1,4 +1,12 @@
 { pkgs, lib, ... }: {
+  imports = [
+    ../../modules/home-manager/art.nix
+    ../../modules/home-manager/floorp.nix
+    ../../modules/home-manager/git.nix
+    ../../modules/home-manager/syncthing.nix
+    ../../modules/home-manager/nixvim.nix
+  ];
+
   home.username = "kira";
   home.homeDirectory = "/home/kira";
   home.stateVersion = "25.11";
@@ -31,6 +39,8 @@
     };
     shellAliases = {
       cdx = "codex";
+      codex = "ALL_PROXY='socks5h://localhost:2080' HTTPS_PROXY='socks5h://localhost:2080' HTTP_PROXY='http://localhost:2080' codex";
+      proxy = "export ALL_PROXY='socks5h://localhost:2080' all_proxy='socks5h://localhost:2080' HTTPS_PROXY='socks5h://localhost:2080' https_proxy='socks5h://localhost:2080' HTTP_PROXY='http://localhost:2080' http_proxy='http://localhost:2080'";
     };
   };
 
