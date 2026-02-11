@@ -39,6 +39,11 @@
   };
 
   my.pantheon.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true;
   graphicalTablet.enable = true;
   virt.kvm.enable = true;
   virt.vbox.enable = false;
