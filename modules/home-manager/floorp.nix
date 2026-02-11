@@ -20,11 +20,11 @@ in {
       isDefault = true;
       search = {
         force = true;
-        default = "DuckDuckGo";
+        default = "ddg";
       };
-      extensions = with addons; [
+      extensions.packages = with addons; [
         ublock-origin
-        tampermonkey
+        violentmonkey
         bitwarden
       ];
       settings = {
