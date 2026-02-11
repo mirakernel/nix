@@ -1,11 +1,13 @@
-{ pkgs, lib, ... }: {
+{ pkgs, ... }: {
   imports = [
     ../../modules/home-manager/art.nix
+    ../../modules/home-manager/ai.nix
     ../../modules/home-manager/floorp.nix
     ../../modules/home-manager/git.nix
     ../../modules/home-manager/syncthing.nix
     ../../modules/home-manager/nixvim.nix
     ../../modules/home-manager/tmux.nix
+    ../../modules/home-manager/vpn.nix
     ../../modules/home-manager/passwd.nix
     ../../modules/home-manager/user-dirs.nix
     ../../modules/home-manager/fonts.nix
@@ -47,6 +49,4 @@
       proxy = "export ALL_PROXY='socks5h://localhost:2080' all_proxy='socks5h://localhost:2080' HTTPS_PROXY='socks5h://localhost:2080' https_proxy='socks5h://localhost:2080' HTTP_PROXY='http://localhost:2080' http_proxy='http://localhost:2080'";
     };
   };
-
-  home.packages = lib.optionals (pkgs ? codex) [ pkgs.codex ];
 }
