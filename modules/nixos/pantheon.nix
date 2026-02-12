@@ -56,6 +56,12 @@ in {
     services.displayManager.autoLogin.user = "kira";
     services.displayManager.defaultSession = "pantheon-wayland";
     services.desktopManager.pantheon.enable = true;
+    services.fprintd.enable = true;
+    security.pam.services = {
+      login.fprintAuth = true;
+      sudo.fprintAuth = true;
+      lightdm.fprintAuth = true;
+    };
 
     environment.systemPackages = elementaryApps ++ themePackages ++ cfg.extraPackages;
 

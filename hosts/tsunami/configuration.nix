@@ -39,6 +39,13 @@
     ];
   };
 
+  services.fprintd.enable = true;
+  security.pam.services = {
+    login.fprintAuth = true;
+    sudo.fprintAuth = true;
+    sddm.fprintAuth = true;
+  };
+
   my.plasma.enable = true;
   hardware.bluetooth = {
     enable = true;
