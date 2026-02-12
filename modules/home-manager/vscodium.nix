@@ -14,7 +14,14 @@
           rust-lang.rust-analyzer
           tamasfe.even-better-toml
           fill-labs.dependi
+          vscodevim.vim
           vadimcn.vscode-lldb
+          # Python
+          ms-python.python
+          ms-python.vscode-pylance
+          ms-python.debugpy
+          ms-python.black-formatter
+          charliermarsh.ruff
         ];
         userSettings = {
           "update.mode" = "none";
