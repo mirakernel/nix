@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 let
   wallpaper = ../../imgs/tsunami-kira-wallpaper-1.png;
 in {
@@ -12,6 +12,7 @@ in {
     ../../modules/home-manager/nixvim.nix
     ../../modules/home-manager/tmux.nix
     ../../modules/home-manager/term.nix
+    ../../modules/home-manager/shell.nix
     ../../modules/home-manager/emacs.nix
     ../../modules/home-manager/vpn.nix
     ../../modules/home-manager/passwd.nix
@@ -42,6 +43,7 @@ in {
   };
 
   programs.home-manager.enable = true;
+  my.hm.shell.enable = true;
   my.hm.plasma.enable = true;
   my.hm.vscodium.enable = true;
   my.hm.emacs.enable = true;
@@ -61,20 +63,4 @@ in {
     };
   };
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "robbyrussell";
-    };
-    shellAliases = {
-      cdx = "codex";
-      codex = "ALL_PROXY='socks5h://localhost:2080' HTTPS_PROXY='socks5h://localhost:2080' HTTP_PROXY='http://localhost:2080' codex";
-      proxy = "export ALL_PROXY='socks5h://localhost:2080' all_proxy='socks5h://localhost:2080' HTTPS_PROXY='socks5h://localhost:2080' https_proxy='socks5h://localhost:2080' HTTP_PROXY='http://localhost:2080' http_proxy='http://localhost:2080'";
-    };
-  };
 }
