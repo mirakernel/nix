@@ -18,7 +18,7 @@
           vadimcn.vscode-lldb
           # Python
           ms-python.python
-          ms-python.vscode-pylance
+          ms-pyright.pyright
           ms-python.debugpy
           ms-python.black-formatter
           charliermarsh.ruff
