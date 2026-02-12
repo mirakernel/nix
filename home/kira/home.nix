@@ -17,6 +17,7 @@ in {
     ../../modules/home-manager/passwd.nix
     ../../modules/home-manager/user-dirs.nix
     ../../modules/home-manager/fonts.nix
+    ../../modules/home-manager/office.nix
     ../../modules/home-manager/plasma.nix
     ../../modules/home-manager/vscodium.nix
     ../../modules/home-manager/rust.nix
@@ -44,6 +45,7 @@ in {
   my.hm.plasma.enable = true;
   my.hm.vscodium.enable = true;
   my.hm.emacs.enable = true;
+  my.hm.office.enable = true;
   my.hm.rust.enable = true;
   my.hm.python.enable = true;
   my.hm.torrent.enable = true;

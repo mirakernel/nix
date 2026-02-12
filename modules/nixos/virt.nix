@@ -23,7 +23,7 @@ in {
 
     (lib.mkIf cfg.vbox.enable {
       virtualisation.virtualbox.host.enable = true;
-      virtualisation.virtualbox.host.enableKvm = true;
+      virtualisation.virtualbox.host.enableKvm = false;
       virtualisation.virtualbox.host.addNetworkInterface = false;
       users.users.${cfg.user}.extraGroups = [ "vboxusers" ];
     })

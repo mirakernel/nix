@@ -56,7 +56,7 @@
   };
   graphicalTablet.enable = true;
   virt.kvm.enable = true;
-  virt.vbox.enable = false;
+  virt.vbox.enable = true;
   container.docker.enable = true;
 
   users.users.kira = {
