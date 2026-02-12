@@ -144,6 +144,17 @@
    </metadata>
   </info>
  </bookmark>
+ <bookmark href="file:///home/kira/vms">
+  <title>Виртуальные машины</title>
+  <info>
+   <metadata owner="http://freedesktop.org">
+    <bookmark:icon name="folder-cloud"/>
+   </metadata>
+   <metadata owner="http://www.kde.org">
+    <ID>1770849861/3</ID>
+   </metadata>
+  </info>
+ </bookmark>
  <bookmark href="trash:/">
   <title>Trash</title>
   <info>
