@@ -58,6 +58,34 @@
   virt.kvm.enable = true;
   virt.vbox.enable = true;
   container.docker.enable = true;
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = "NixOS SMB Server";
+        "security" = "user";
+        "map to guest" = "Bad User";
+        "guest account" = "kira";
+      };
+
+      shared = {
+        "path" = "/home/kira/shared";
+        "browseable" = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "force user" = "kira";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+      };
+    };
+  };
+
+  services.samba-wsdd = {
+    enable = true;
+    openFirewall = true;
+  };
 
   users.users.kira = {
     isNormalUser = true;
@@ -74,6 +102,7 @@
     "d /var/lib/AccountsService/users 0755 root root -"
     "L+ /var/lib/AccountsService/icons/${username} - - - - ${iconPath}"
     "f+ /var/lib/AccountsService/users/${username} 0600 root root - [User]\\nIcon=/var/lib/AccountsService/icons/${username}\\nSystemAccount=false\\n"
+    "d /home/kira/shared 0775 kira users -"
   ];
 
   programs.zsh.enable = true;
