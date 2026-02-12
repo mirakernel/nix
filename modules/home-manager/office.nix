@@ -9,5 +9,10 @@
       hunspellDicts.ru_RU
       hyphenDicts.ru_RU
     ];
+
+    home.sessionVariables = {
+      # Force KDE/Qt UI backend so LibreOffice follows Plasma theme.
+      SAL_USE_VCLPLUGIN = "kf6";
+    };
   };
 }

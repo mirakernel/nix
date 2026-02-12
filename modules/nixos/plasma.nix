@@ -25,6 +25,7 @@ in {
       kdePackages.kate
       kdePackages.kcalc
       kdePackages.spectacle
+      kdePackages.kdeconnect-kde
       kdePackages.plasma-nm
       kdePackages.bluedevil
     ] ++ cfg.extraPackages;
