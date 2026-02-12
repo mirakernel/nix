@@ -17,6 +17,4 @@
       };
     };
   };
-
-  home.packages = with pkgs; [ terminator ];
 }
