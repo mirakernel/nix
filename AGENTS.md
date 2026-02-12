@@ -21,6 +21,18 @@
 - Keep module names descriptive and scoped under `my.*` options (see existing modules).
 - Prefer clear, concise attribute names and short inline comments only when needed.
 
+## Module Style Guide
+- Use this module shape by default: `{ config, lib, pkgs, ... }: { options = ...; config = lib.mkIf ...; }`.
+- For Home Manager modules, define options under `my.hm.<name>.enable`.
+- For NixOS modules, define options under `my.nixos.<name>.enable` (or existing project namespace when already established).
+- Keep one responsibility per module: avoid mixing unrelated services/apps in one file.
+- Prefer declarative user/system services inside modules (`systemd.user.services` or `systemd.services`) instead of ad-hoc shell hooks.
+- Put user-facing packages in `home.packages`; put system-level packages in `environment.systemPackages`.
+- Keep defaults explicit and local to the module; avoid hidden magic from unrelated files.
+- Reuse `config.xdg.*` paths for user configs/data instead of hardcoded `/home/<user>`.
+- Add comments only where intent is non-obvious (why), not for trivial assignments (what).
+- When adding a new module file, also wire it in the proper entrypoint (`home/<user>/home.nix` or `hosts/<name>/configuration.nix`) and set its `my.*.enable` flag explicitly.
+
 ## Testing Guidelines
 - No automated test suite is defined.
 - Validate changes by running `nixos-rebuild switch` and, if relevant, `home-manager switch`.
