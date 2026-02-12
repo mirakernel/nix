@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  wallpaper = ../../imgs/tsunami-kira-wallpaper-1.png;
+in {
   imports = [
     ../../modules/home-manager/art.nix
     ../../modules/home-manager/ai.nix
@@ -38,6 +41,15 @@
   my.hm.vscodium.enable = true;
   my.hm.emacs.enable = true;
   my.hm.rust.enable = true;
+
+  dconf.enable = true;
+  dconf.settings = {
+    "org/gnome/desktop/background" = {
+      picture-uri = "file://${wallpaper}";
+      picture-uri-dark = "file://${wallpaper}";
+      picture-options = "zoom";
+    };
+  };
 
   programs.zsh = {
     enable = true;

@@ -15,6 +15,7 @@
 
   console = {
     useXkbConfig = true;
+    font = "cyr-sun16";
   };
 
   services.xserver.xkb = {
@@ -40,6 +41,7 @@
   };
 
   services.fprintd.enable = true;
+  services.accounts-daemon.enable = true;
   security.pam.services = {
     login.fprintAuth = true;
     sudo.fprintAuth = true;
@@ -58,9 +60,20 @@
 
   users.users.kira = {
     isNormalUser = true;
+    description = "Миракернел";
     extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
   };
+
+  systemd.tmpfiles.rules = let
+    username = "kira";
+    iconPath = ../../imgs/tsunami-kira-avatar.jpg;
+  in [
+    "d /var/lib/AccountsService/icons 0755 root root -"
+    "d /var/lib/AccountsService/users 0755 root root -"
+    "L+ /var/lib/AccountsService/icons/${username} - - - - ${iconPath}"
+    "f+ /var/lib/AccountsService/users/${username} 0600 root root - [User]\\nIcon=/var/lib/AccountsService/icons/${username}\\nSystemAccount=false\\n"
+  ];
 
   programs.zsh.enable = true;
 

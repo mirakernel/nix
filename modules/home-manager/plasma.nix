@@ -12,6 +12,7 @@
 
     programs.plasma = {
       enable = true;
+      workspace.wallpaper = ../../imgs/tsunami-kira-wallpaper-1.png;
       shortcuts = {
         ActivityManager.switch-to-activity-31e8453d-0843-49ee-8d79-fe3ca3aae883 = [ ];
         ActivityManager.switch-to-activity-5ee31e54-3b02-48f6-bc4e-159760bc8e47 = [ ];
