@@ -7,6 +7,7 @@
     home.packages = with pkgs; [
       tor
       torsocks
+      (if pkgs ? tor-browser then tor-browser else tor-browser-bundle-bin)
     ];
 
     xdg.configFile."tor/torrc".text = ''
