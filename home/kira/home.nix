@@ -4,8 +4,8 @@ let
 in {
   imports = [
     ../../modules/home-manager/art.nix
-    ../../modules/home-manager/ai.nix
     ../../modules/home-manager/apps.nix
+    ../../modules/home-manager/ai.nix
     ../../modules/home-manager/floorp.nix
     ../../modules/home-manager/git.nix
     ../../modules/home-manager/syncthing.nix
@@ -20,6 +20,7 @@ in {
     ../../modules/home-manager/plasma.nix
     ../../modules/home-manager/vscodium.nix
     ../../modules/home-manager/rust.nix
+    ../../modules/home-manager/python.nix
   ];
 
   home.username = "kira";
@@ -41,6 +42,7 @@ in {
   my.hm.vscodium.enable = true;
   my.hm.emacs.enable = true;
   my.hm.rust.enable = true;
+  my.hm.python.enable = true;
 
   dconf.enable = true;
   dconf.settings = {

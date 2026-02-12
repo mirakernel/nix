@@ -12,7 +12,7 @@
       isort
       mypy
       pyright
-      pytest
+      python3Packages.pytest
       poetry
       pipx
       python3Packages.virtualenv
