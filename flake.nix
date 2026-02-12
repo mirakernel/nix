@@ -18,9 +18,10 @@
       url = "github:nix-community/home-manager?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    codex-cli-nix.url = "github:sadjow/codex-cli-nix";
   };
 
-  outputs = { nixpkgs, home-manager, sops-nix, plasma-manager, nixvim, nur, ... }: let
+  outputs = { nixpkgs, home-manager, sops-nix, plasma-manager, nixvim, nur, codex-cli-nix, ... }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -34,12 +35,12 @@
         home-manager.nixosModules.home-manager
         ./hosts/tsunami/configuration.nix
       ];
-      specialArgs = { inherit nixvim nur plasma-manager; };
+      specialArgs = { inherit nixvim nur plasma-manager codex-cli-nix; };
     };
 
     homeConfigurations.kira = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      extraSpecialArgs = { inherit nur; };
+      extraSpecialArgs = { inherit nur codex-cli-nix; };
       modules = [
         nixvim.homeModules.nixvim
         plasma-manager.homeModules.plasma-manager

@@ -1,4 +1,4 @@
-{ pkgs, nixvim, nur, plasma-manager, ... }: {
+{ pkgs, nixvim, nur, plasma-manager, codex-cli-nix, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/plasma.nix
@@ -85,6 +85,6 @@
     nixvim.homeModules.nixvim
     plasma-manager.homeModules.plasma-manager
   ];
-  home-manager.extraSpecialArgs = { inherit nur; };
+  home-manager.extraSpecialArgs = { inherit nur codex-cli-nix; };
   home-manager.users.kira = import ../../home/kira/home.nix;
 }
