@@ -31,6 +31,18 @@
           "files.trimTrailingWhitespace" = true;
           "editor.formatOnSave" = true;
           "editor.fontFamily" = "JetBrainsMono Nerd Font";
+          # Python
+          "python.analysis.typeCheckingMode" = "basic";
+          "python.analysis.autoImportCompletions" = true;
+          "python.analysis.diagnosticMode" = "workspace";
+          "python.analysis.useLibraryCodeForTypes" = true;
+          "[python]" = {
+            "editor.defaultFormatter" = "ms-python.black-formatter";
+            "editor.codeActionsOnSave" = {
+              "source.fixAll.ruff" = "explicit";
+              "source.organizeImports.ruff" = "explicit";
+            };
+          };
         };
       };
     };
