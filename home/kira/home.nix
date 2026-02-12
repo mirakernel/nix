@@ -9,6 +9,7 @@
     ../../modules/home-manager/nixvim.nix
     ../../modules/home-manager/tmux.nix
     ../../modules/home-manager/term.nix
+    ../../modules/home-manager/emacs.nix
     ../../modules/home-manager/vpn.nix
     ../../modules/home-manager/passwd.nix
     ../../modules/home-manager/user-dirs.nix
@@ -35,6 +36,7 @@
   programs.home-manager.enable = true;
   my.hm.plasma.enable = true;
   my.hm.vscodium.enable = true;
+  my.hm.emacs.enable = true;
   my.hm.rust.enable = true;
 
   programs.zsh = {
