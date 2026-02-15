@@ -19,9 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
+    thinkfan-ui.url = "github:mirakernel/thinkfan-ui?ref=flake-nix";
   };
 
-  outputs = { nixpkgs, home-manager, sops-nix, plasma-manager, nixvim, nur, codex-cli-nix, ... }: let
+  outputs = { nixpkgs, home-manager, sops-nix, plasma-manager, nixvim, nur, codex-cli-nix, thinkfan-ui, ... }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -35,7 +36,7 @@
         home-manager.nixosModules.home-manager
         ./hosts/tsunami/configuration.nix
       ];
-      specialArgs = { inherit nixvim nur plasma-manager codex-cli-nix; };
+      specialArgs = { inherit nixvim nur plasma-manager codex-cli-nix thinkfan-ui; };
     };
 
     homeConfigurations.kira = home-manager.lib.homeManagerConfiguration {
