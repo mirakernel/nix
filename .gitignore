@@ -7,7 +7,7 @@ result-*
 .direnv/
 
 # Local secret material
-secrets/*.yaml
+# Encrypted SOPS files (*.yaml) should be tracked in git.
 !secrets/*.yaml.example
 *.age
 *.pem

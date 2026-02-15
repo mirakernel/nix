@@ -13,6 +13,7 @@ in {
     ../../modules/home-manager/tmux.nix
     ../../modules/home-manager/term.nix
     ../../modules/home-manager/shell.nix
+    ../../modules/home-manager/sops.nix
     ../../modules/home-manager/emacs.nix
     ../../modules/home-manager/vpn.nix
     ../../modules/home-manager/passwd.nix
@@ -23,6 +24,7 @@ in {
     ../../modules/home-manager/vscodium.nix
     ../../modules/home-manager/rust.nix
     ../../modules/home-manager/python.nix
+    ../../modules/home-manager/audio.nix
     ../../modules/home-manager/torrent.nix
     ../../modules/home-manager/tor.nix
     ../../modules/home-manager/i2p.nix
@@ -44,12 +46,14 @@ in {
 
   programs.home-manager.enable = true;
   my.hm.shell.enable = true;
+  my.hm.sops.enable = true;
   my.hm.plasma.enable = true;
   my.hm.vscodium.enable = true;
   my.hm.emacs.enable = true;
   my.hm.office.enable = true;
   my.hm.rust.enable = true;
   my.hm.python.enable = true;
+  my.hm.audio.enable = true;
   my.hm.torrent.enable = true;
   my.hm.tor.enable = true;
   my.hm.i2p.enable = true;

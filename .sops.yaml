@@ -1,0 +1,5 @@
+# Правила шифрования SOPS для этого репозитория.
+# Подставьте ваш age recipient (age1...) ниже.
+creation_rules:
+  - path_regex: ^secrets/.*\.yaml(\.example)?$
+    age: age1d4mw50fxwp2l2zkq4d8gs7laq5umqqztwxxs52qs7ygtp6rt944q75vq56

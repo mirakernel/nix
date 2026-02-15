@@ -8,3 +8,11 @@
 
 Ожидаемые ключи:
 - `vpn/singbox_uuid`
+
+Для NetBird setup keys используйте:
+- `secrets/netbird.yaml.example` -> `secrets/netbird.yaml`
+- ключи: `netbird/mirakernel_setup_key`, `netbird/techmind_setup_key`
+
+Для удобного `sops -e ...` без `--age`:
+- укажите ваш `age1...` в `.sops.yaml`
+- после этого можно шифровать так: `sops -e secrets/netbird.yaml.example > secrets/netbird.yaml`

@@ -1,10 +1,11 @@
-{ pkgs, nixvim, nur, plasma-manager, codex-cli-nix, ... }: {
+{ config, pkgs, nixvim, nur, plasma-manager, codex-cli-nix, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/plasma.nix
     ../../modules/nixos/virt.nix
     ../../modules/nixos/container.nix
     ../../modules/nixos/graphical-tablet.nix
+    ../../modules/nixos/netbird.nix
   ];
 
   system.stateVersion = "25.11";
@@ -41,6 +42,22 @@
     ];
   };
 
+  sops = {
+    age = {
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true;
+    };
+
+    secrets = {
+      "netbird/mirakernel_setup_key" = {
+        sopsFile = ../../secrets/netbird.yaml;
+      };
+      "netbird/techmind_setup_key" = {
+        sopsFile = ../../secrets/netbird.yaml;
+      };
+    };
+  };
+
   services.fprintd.enable = true;
   services.accounts-daemon.enable = true;
   security.pam.services = {
@@ -50,6 +67,49 @@
   };
 
   my.plasma.enable = true;
+  my.nixos.netbird = {
+    enable = true;
+    ui.enable = true;
+    profiles = {
+      mirakernel = {
+        managementUrl = "https://netbird.mirakernel.ru";
+        setupKeyFile = config.sops.secrets."netbird/mirakernel_setup_key".path;
+        port = 51820;
+        interface = "nb-mira";
+        dnsResolverAddress = "127.20.0.1";
+      };
+
+      techmind = {
+        managementUrl = "https://netbird.techmindsolutions.ru";
+        setupKeyFile = config.sops.secrets."netbird/techmind_setup_key".path;
+        port = 51821;
+        interface = "nb-tech";
+        dnsResolverAddress = "127.20.0.2";
+      };
+    };
+  };
+
+  services.dnsmasq = {
+    enable = true;
+    resolveLocalQueries = true;
+    settings = {
+      bind-interfaces = true;
+      listen-address = [ "127.0.0.1" "::1" ];
+      no-resolv = true;
+      server = [
+        "/netbird.selfhosted/127.20.0.1#53"
+        "/tms.ru/127.20.0.2#53"
+        "1.1.1.1"
+        "9.9.9.9"
+      ];
+    };
+  };
+
+  services.resolved.enable = false;
+  networking.resolvconf.useLocalResolver = true;
+  networking.networkmanager.dns = "none";
+  networking.nameservers = [ "127.0.0.1" ];
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
