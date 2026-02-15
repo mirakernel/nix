@@ -5,6 +5,6 @@
       obsidian
     ]
     ++ lib.optionals (lib.attrByPath [ "my" "hm" "plasma" "enable" ] false config) [
-      krdc
+      pkgs.kdePackages.krdc
     ];
 }
