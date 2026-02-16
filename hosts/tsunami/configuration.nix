@@ -7,6 +7,7 @@
     ../../modules/nixos/graphical-tablet.nix
     ../../modules/nixos/netbird.nix
     ../../modules/nixos/thinkpad.nix
+    ../../modules/nixos/throne.nix
   ];
 
   system.stateVersion = "25.11";
@@ -69,6 +70,7 @@
 
   my.plasma.enable = true;
   my.nixos.thinkpad.enable = true;
+  my.nixos.throne.enable = true;
   my.nixos.netbird = {
     enable = true;
     ui.enable = true;

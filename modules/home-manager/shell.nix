@@ -9,6 +9,8 @@
       bat
       eza
       zoxide
+      jq
+      wget
     ];
 
     programs.zoxide.enable = true;

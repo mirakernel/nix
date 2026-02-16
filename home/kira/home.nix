@@ -15,7 +15,6 @@ in {
     ../../modules/home-manager/shell.nix
     ../../modules/home-manager/sops.nix
     ../../modules/home-manager/emacs.nix
-    ../../modules/home-manager/vpn.nix
     ../../modules/home-manager/passwd.nix
     ../../modules/home-manager/user-dirs.nix
     ../../modules/home-manager/fonts.nix
@@ -49,6 +48,7 @@ in {
   my.hm.sops.enable = true;
   my.hm.plasma.enable = true;
   my.hm.vscodium.enable = true;
+  my.hm.vscodium.proxy.http = "http://localhost:2080";
   my.hm.emacs.enable = true;
   my.hm.office.enable = true;
   my.hm.rust.enable = true;
