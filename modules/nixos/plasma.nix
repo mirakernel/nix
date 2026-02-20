@@ -28,6 +28,7 @@ in {
       kdePackages.kdeconnect-kde
       kdePackages.plasma-nm
       kdePackages.bluedevil
+      haruna
     ] ++ cfg.extraPackages;
   };
 }

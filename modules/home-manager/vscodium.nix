@@ -55,6 +55,10 @@ in
         extensions =
           (with pkgs.vscode-extensions; [
             ms-ceintl.vscode-language-pack-ru
+            # Nix / NixOS / Flakes
+            bbenoist.nix
+            jnoortheen.nix-ide
+            mkhl.direnv
             # Rust
             rust-lang.rust-analyzer
             tamasfe.even-better-toml

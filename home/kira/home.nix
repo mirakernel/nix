@@ -24,6 +24,7 @@ in {
     ../../modules/home-manager/rust.nix
     ../../modules/home-manager/python.nix
     ../../modules/home-manager/audio.nix
+    ../../modules/home-manager/android.nix
     ../../modules/home-manager/torrent.nix
     ../../modules/home-manager/tor.nix
     ../../modules/home-manager/i2p.nix
@@ -54,6 +55,7 @@ in {
   my.hm.rust.enable = true;
   my.hm.python.enable = true;
   my.hm.audio.enable = true;
+  my.hm.android.enable = true;
   my.hm.torrent.enable = true;
   my.hm.tor.enable = true;
   my.hm.i2p.enable = true;
