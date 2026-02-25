@@ -19,6 +19,7 @@ in {
     ../../modules/home-manager/user-dirs.nix
     ../../modules/home-manager/fonts.nix
     ../../modules/home-manager/office.nix
+    ../../modules/home-manager/archive.nix
     ../../modules/home-manager/plasma.nix
     ../../modules/home-manager/vscodium.nix
     ../../modules/home-manager/rust.nix
@@ -52,6 +53,7 @@ in {
   my.hm.vscodium.proxy.http = "http://localhost:2080";
   my.hm.emacs.enable = true;
   my.hm.office.enable = true;
+  my.hm.archive.enable = true;
   my.hm.rust.enable = true;
   my.hm.python.enable = true;
   my.hm.audio.enable = true;
