@@ -20,8 +20,10 @@ in {
       virtualisation.spiceUSBRedirection.enable = true;
       users.users.${cfg.user}.extraGroups = [ "libvirtd" "kvm" ];
 
-      systemd.services.virt-secret-init-encryption.serviceConfig.ExecStart = lib.mkForce
-        "${pkgs.runtimeShell} -c 'umask 0077 && (${pkgs.coreutils}/bin/dd if=/dev/random status=none bs=32 count=1 | ${lib.getExe' pkgs.systemd "systemd-creds"} encrypt --name=secrets-encryption-key - /var/lib/libvirt/secrets/secrets-encryption-key)'";
+      systemd.services.virt-secret-init-encryption.serviceConfig.ExecStart = lib.mkForce [
+        ""
+        "${pkgs.runtimeShell} -c 'umask 0077 && (${pkgs.coreutils}/bin/dd if=/dev/random status=none bs=32 count=1 | ${lib.getExe' pkgs.systemd "systemd-creds"} encrypt --name=secrets-encryption-key - /var/lib/libvirt/secrets/secrets-encryption-key)'"
+      ];
     })
 
     (lib.mkIf cfg.vbox.enable {
