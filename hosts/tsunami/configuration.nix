@@ -5,9 +5,11 @@
     ../../modules/nixos/virt.nix
     ../../modules/nixos/container.nix
     ../../modules/nixos/graphical-tablet.nix
+    ../../modules/nixos/distrobox.nix
     ../../modules/nixos/netbird.nix
     ../../modules/nixos/thinkpad.nix
     ../../modules/nixos/throne.nix
+    ../../modules/nixos/waydroid.nix
   ];
 
   system.stateVersion = "25.11";
@@ -39,8 +41,9 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     extra-substituters = [
-      "https://mirror.yandex.ru/nixos/"
       "https://cache.nixos.org/"
+      "https://mirror.yandex.ru/nixos/"
+      "https://nix-mirror.freetls.fastly.net"
     ];
   };
 
@@ -71,6 +74,8 @@
   my.plasma.enable = true;
   my.nixos.thinkpad.enable = true;
   my.nixos.throne.enable = true;
+  my.nixos.distrobox.enable = true;
+  my.nixos.waydroid.enable = true;
   my.nixos.netbird = {
     enable = true;
     ui.enable = true;

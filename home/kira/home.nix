@@ -26,6 +26,8 @@ in {
     ../../modules/home-manager/python.nix
     ../../modules/home-manager/audio.nix
     ../../modules/home-manager/android.nix
+    ../../modules/home-manager/chromium.nix
+    ../../modules/home-manager/wine.nix
     ../../modules/home-manager/torrent.nix
     ../../modules/home-manager/tor.nix
     ../../modules/home-manager/i2p.nix
@@ -39,8 +41,9 @@ in {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       extra-substituters = [
-        "https://mirror.yandex.ru/nixos/"
         "https://cache.nixos.org/"
+        "https://mirror.yandex.ru/nixos/"
+        "https://nix-mirror.freetls.fastly.net"
       ];
     };
   };
@@ -58,6 +61,8 @@ in {
   my.hm.python.enable = true;
   my.hm.audio.enable = true;
   my.hm.android.enable = true;
+  my.hm.chromium.enable = true;
+  my.hm.wine.enable = true;
   my.hm.torrent.enable = true;
   my.hm.tor.enable = true;
   my.hm.i2p.enable = true;
