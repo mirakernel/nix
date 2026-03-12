@@ -1,6 +1,12 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.my.nixos.netbird;
+  patchedNetbirdUi = pkgs.netbird-ui.overrideAttrs (old: {
+    postFixup = (old.postFixup or "") + ''
+      substituteInPlace "$out/share/applications/netbird.desktop" \
+        --replace-fail 'Exec=netbird-ui' 'Exec=${placeholder "out"}/bin/netbird-ui'
+    '';
+  });
 in {
   options.my.nixos.netbird = {
     enable = lib.mkEnableOption "клиент NetBird";
@@ -60,6 +66,7 @@ in {
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       services.netbird.ui.enable = cfg.ui.enable;
+      services.netbird.ui.package = patchedNetbirdUi;
     }
 
     (lib.mkIf (cfg.profiles == { }) {

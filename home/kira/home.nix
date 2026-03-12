@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 let
   wallpaper = ../../imgs/tsunami-kira-wallpaper-1.png;
 in {
@@ -27,6 +27,7 @@ in {
     ../../modules/home-manager/audio.nix
     ../../modules/home-manager/android.nix
     ../../modules/home-manager/chromium.nix
+    ../../modules/home-manager/steam.nix
     ../../modules/home-manager/wine.nix
     ../../modules/home-manager/torrent.nix
     ../../modules/home-manager/tor.nix
@@ -38,6 +39,7 @@ in {
   home.stateVersion = "25.11";
 
   nix = {
+    package = pkgs.nix;
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       extra-substituters = [
@@ -62,6 +64,7 @@ in {
   my.hm.audio.enable = true;
   my.hm.android.enable = true;
   my.hm.chromium.enable = true;
+  my.hm.steam.enable = true;
   my.hm.wine.enable = true;
   my.hm.torrent.enable = true;
   my.hm.tor.enable = true;

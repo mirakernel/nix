@@ -7,6 +7,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.distrobox ];
+    environment.systemPackages = with pkgs; [
+      distrobox
+      kontainer
+    ];
   };
 }

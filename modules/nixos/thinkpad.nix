@@ -1,10 +1,11 @@
 { config, lib, pkgs, thinkfan-ui, ... }:
 let
   cfg = config.my.nixos.thinkpad;
+  system = pkgs.stdenv.hostPlatform.system;
 
   systemPackages =
-    if builtins.hasAttr "packages" thinkfan-ui && builtins.hasAttr pkgs.system thinkfan-ui.packages
-    then thinkfan-ui.packages.${pkgs.system}
+    if builtins.hasAttr "packages" thinkfan-ui && builtins.hasAttr system thinkfan-ui.packages
+    then thinkfan-ui.packages.${system}
     else { };
 
   thinkfanUiPackage =
@@ -13,7 +14,7 @@ let
     else if builtins.hasAttr "thinkfan-ui" systemPackages then
       systemPackages.thinkfan-ui
     else
-      throw "thinkfan-ui flake does not expose packages.${pkgs.system}.default or packages.${pkgs.system}.thinkfan-ui";
+      throw "thinkfan-ui flake does not expose packages.${system}.default or packages.${system}.thinkfan-ui";
 in {
   options.my.nixos.thinkpad = {
     enable = lib.mkEnableOption "ThinkPad-specific packages";
