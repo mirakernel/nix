@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   wallpaper = ../../imgs/tsunami-kira-wallpaper-1.png;
 in {
   imports = [
     ../../modules/home-manager/art.nix
     ../../modules/home-manager/apps.nix
+    ../../modules/home-manager/gns3.nix
     ../../modules/home-manager/ai.nix
     ../../modules/home-manager/floorp.nix
     ../../modules/home-manager/git.nix
@@ -20,12 +21,14 @@ in {
     ../../modules/home-manager/fonts.nix
     ../../modules/home-manager/office.nix
     ../../modules/home-manager/archive.nix
+    ../../modules/home-manager/ntfs3g.nix
     ../../modules/home-manager/plasma.nix
     ../../modules/home-manager/vscodium.nix
     ../../modules/home-manager/rust.nix
     ../../modules/home-manager/python.nix
     ../../modules/home-manager/audio.nix
     ../../modules/home-manager/android.nix
+    ../../modules/home-manager/godot.nix
     ../../modules/home-manager/chromium.nix
     ../../modules/home-manager/steam.nix
     ../../modules/home-manager/wine.nix
@@ -39,7 +42,7 @@ in {
   home.stateVersion = "25.11";
 
   nix = {
-    package = pkgs.nix;
+    package = lib.mkDefault pkgs.nix;
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       extra-substituters = [
@@ -52,6 +55,7 @@ in {
 
   programs.home-manager.enable = true;
   my.hm.shell.enable = true;
+  my.hm.gns3.enable = true;
   my.hm.sops.enable = true;
   my.hm.plasma.enable = true;
   my.hm.vscodium.enable = true;
@@ -59,10 +63,12 @@ in {
   my.hm.emacs.enable = true;
   my.hm.office.enable = true;
   my.hm.archive.enable = true;
+  my.hm.ntfs3g.enable = true;
   my.hm.rust.enable = true;
   my.hm.python.enable = true;
   my.hm.audio.enable = true;
   my.hm.android.enable = true;
+  my.hm.godot.enable = true;
   my.hm.chromium.enable = true;
   my.hm.steam.enable = true;
   my.hm.wine.enable = true;
