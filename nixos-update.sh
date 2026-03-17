@@ -3,7 +3,7 @@ set -euo pipefail
 
 HOST="tsunami"
 HM_USER="kira"
-DO_FLAKE_UPDATE=1
+DO_FLAKE_UPDATE=0
 DO_HOME_MANAGER=1
 
 usage() {
@@ -13,14 +13,14 @@ Usage: ./nixos-update.sh [options]
 Options:
   --host <name>          NixOS host in flake (default: tsunami)
   --user <name>          Home Manager user (default: kira)
-  --no-flake-update      Skip `nix flake update`
+  -u, --update           Run `nix flake update` before rebuild
   --no-home-manager      Skip `home-manager switch`
   -h, --help             Show this help
 
 Examples:
   ./nixos-update.sh
   ./nixos-update.sh --host tsunami --user kira
-  ./nixos-update.sh --no-flake-update
+  ./nixos-update.sh --update
 EOF
 }
 
@@ -34,8 +34,8 @@ while [[ $# -gt 0 ]]; do
       HM_USER="$2"
       shift 2
       ;;
-    --no-flake-update)
-      DO_FLAKE_UPDATE=0
+    -u|--update)
+      DO_FLAKE_UPDATE=1
       shift
       ;;
     --no-home-manager)

@@ -14,17 +14,20 @@ in {
     ../../modules/home-manager/tmux.nix
     ../../modules/home-manager/term.nix
     ../../modules/home-manager/shell.nix
+    ../../modules/home-manager/ssh.nix
     ../../modules/home-manager/sops.nix
     ../../modules/home-manager/emacs.nix
     ../../modules/home-manager/passwd.nix
     ../../modules/home-manager/user-dirs.nix
     ../../modules/home-manager/fonts.nix
     ../../modules/home-manager/office.nix
+    ../../modules/home-manager/db.nix
     ../../modules/home-manager/archive.nix
     ../../modules/home-manager/ntfs3g.nix
     ../../modules/home-manager/plasma.nix
     ../../modules/home-manager/vscodium.nix
     ../../modules/home-manager/rust.nix
+    ../../modules/home-manager/js.nix
     ../../modules/home-manager/python.nix
     ../../modules/home-manager/audio.nix
     ../../modules/home-manager/android.nix
@@ -55,6 +58,7 @@ in {
 
   programs.home-manager.enable = true;
   my.hm.shell.enable = true;
+  my.hm.ssh.enable = true;
   my.hm.gns3.enable = true;
   my.hm.sops.enable = true;
   my.hm.plasma.enable = true;
@@ -62,9 +66,11 @@ in {
   my.hm.vscodium.proxy.http = "http://localhost:2080";
   my.hm.emacs.enable = true;
   my.hm.office.enable = true;
+  my.hm.db.enable = true;
   my.hm.archive.enable = true;
   my.hm.ntfs3g.enable = true;
   my.hm.rust.enable = true;
+  my.hm.js.enable = true;
   my.hm.python.enable = true;
   my.hm.audio.enable = true;
   my.hm.android.enable = true;
