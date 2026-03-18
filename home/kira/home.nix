@@ -33,6 +33,7 @@ in {
     ../../modules/home-manager/android.nix
     ../../modules/home-manager/godot.nix
     ../../modules/home-manager/chromium.nix
+    ../../modules/home-manager/cursor.nix
     ../../modules/home-manager/steam.nix
     ../../modules/home-manager/wine.nix
     ../../modules/home-manager/torrent.nix
@@ -76,6 +77,7 @@ in {
   my.hm.android.enable = true;
   my.hm.godot.enable = true;
   my.hm.chromium.enable = true;
+  my.hm.cursor.enable = true;
   my.hm.steam.enable = true;
   my.hm.wine.enable = true;
   my.hm.torrent.enable = true;
