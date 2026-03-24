@@ -1,4 +1,4 @@
-{ config, pkgs, nixvim, nur, plasma-manager, codex-cli-nix, ... }: {
+{ config, pkgs, nixvim, nur, plasma-manager, codex-cli-nix, playwright-web-flake, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/firewall.nix
@@ -7,6 +7,7 @@
     ../../modules/nixos/container.nix
     ../../modules/nixos/graphical-tablet.nix
     ../../modules/nixos/distrobox.nix
+    ../../modules/nixos/appimage.nix
     ../../modules/nixos/netbird.nix
     ../../modules/nixos/thinkpad.nix
     ../../modules/nixos/throne.nix
@@ -77,6 +78,7 @@
   my.nixos.thinkpad.enable = true;
   my.nixos.throne.enable = true;
   my.nixos.distrobox.enable = true;
+  my.nixos.appimage.enable = true;
   my.nixos.waydroid.enable = true;
   my.nixos.netbird = {
     enable = true;
@@ -185,6 +187,6 @@
     nixvim.homeModules.nixvim
     plasma-manager.homeModules.plasma-manager
   ];
-  home-manager.extraSpecialArgs = { inherit nur codex-cli-nix; };
+  home-manager.extraSpecialArgs = { inherit nur codex-cli-nix playwright-web-flake; };
   home-manager.users.kira = import ../../home/kira/home.nix;
 }

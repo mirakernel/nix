@@ -58,6 +58,7 @@ in {
   };
 
   programs.home-manager.enable = true;
+  my.hm.ai.enable = true;
   my.hm.shell.enable = true;
   my.hm.ssh.enable = true;
   my.hm.gns3.enable = true;

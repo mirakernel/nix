@@ -6,6 +6,7 @@
   config = lib.mkIf config.my.hm.python.enable {
     home.packages = with pkgs; [
       python3
+      ansible
       uv
       ruff
       black
