@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur.url = "github:nix-community/NUR";
     sops-nix.url = "github:Mic92/sops-nix";
     playwright-web-flake.url = "github:pietdevries94/playwright-web-flake";
@@ -24,11 +28,12 @@
     thinkfan-ui.url = "github:mirakernel/thinkfan-ui?ref=flake-nix";
   };
 
-  outputs = { nixpkgs, home-manager, sops-nix, plasma-manager, nixvim, nur, codex-cli-nix, thinkfan-ui, playwright-web-flake, ... }: let
+  outputs = { nixpkgs, nixgl, home-manager, sops-nix, plasma-manager, nixvim, nur, codex-cli-nix, thinkfan-ui, playwright-web-flake, ... }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      overlays = [ nixgl.overlay ];
     };
   in {
     nixosConfigurations.tsunami = nixpkgs.lib.nixosSystem {

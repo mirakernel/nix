@@ -60,9 +60,9 @@ in {
   };
 
   programs.home-manager.enable = true;
-  my.hm.art.enable = true;
+  my.hm.user-dirs.enable = true;
+  my.hm.plasma.enable = true;
   my.hm.avatar.enable = true;
-  my.hm.notes.enable = true;
   my.hm.floorp.enable = true;
   my.hm.git.enable = true;
   my.hm.syncthing.enable = true;
@@ -70,13 +70,10 @@ in {
   my.hm.tmux.enable = true;
   my.hm.term.enable = true;
   my.hm.passwd.enable = true;
-  my.hm.user-dirs.enable = true;
   my.hm.fonts.enable = true;
   my.hm.shell.enable = true;
   my.hm.ssh.enable = true;
-  my.hm.plasma.enable = true;
   my.hm.office.enable = true;
-  my.hm.db.enable = true;
   my.hm.archive.enable = true;
   my.hm.ntfs3g.enable = true;
   my.hm.rust.enable = true;
@@ -84,10 +81,8 @@ in {
   my.hm.python.enable = true;
   my.hm.audio.enable = true;
   my.hm.android.enable = true;
-  my.hm.godot.enable = true;
   my.hm.chromium.enable = true;
   my.hm.steam.enable = true;
-  my.hm.wine.enable = true;
   my.hm.torrent.enable = true;
   my.hm.tor.enable = true;
   my.hm.i2p.enable = true;
@@ -99,6 +94,11 @@ in {
   my.hm.ai.enable = false;
   my.hm.social.enable = false;
   my.hm.gns3.enable = false;
+  my.hm.notes.enable = false;
+  my.hm.wine.enable = false;
+  my.hm.godot.enable = false;
+  my.hm.art.enable = false;
+  my.hm.db.enable = false;
 
   dconf.enable = true;
   dconf.settings = {
