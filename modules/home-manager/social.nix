@@ -8,8 +8,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      telegram-desktop
-    ];
+    home.packages = with pkgs; [ ];
   };
 }

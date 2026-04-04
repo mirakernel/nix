@@ -11,6 +11,7 @@ in
     programs.tmux = {
       enable = true;
       mouse = true;
+      shell = "${pkgs.zsh}/bin/zsh";
       extraConfig = ''
       unbind-key -a -T root
 

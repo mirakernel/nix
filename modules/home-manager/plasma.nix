@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  wallpaper = ../../imgs/tsunami-kira-wallpaper-1.png;
+  wallpaper = ../../imgs/kira-wallpaper.png;
 in {
   options.my.hm.plasma = {
     enable = lib.mkEnableOption "настройка KDE Plasma через plasma-manager";
