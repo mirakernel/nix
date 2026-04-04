@@ -8,21 +8,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.alacritty = {
+    programs.kitty = {
       enable = true;
+      font = {
+        name = "JetBrainsMono Nerd Font";
+      };
       settings = {
-        terminal.shell = {
-          program = "${pkgs.tmux}/bin/tmux";
-          args = [ "new-session" "-A" "-s" "main" ];
-        };
-        font = {
-          normal = {
-            family = "JetBrainsMono Nerd Font";
-          };
-        };
-        window = {
-          opacity = 0.96;
-        };
+        shell = "${pkgs.tmux}/bin/tmux new-session -A -s main";
+        background_opacity = "0.96";
       };
     };
   };

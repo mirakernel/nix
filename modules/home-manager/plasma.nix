@@ -9,6 +9,7 @@ in {
   config = lib.mkIf config.my.hm.plasma.enable {
     home.packages = with pkgs; [
       kdePackages.krdc
+      kdePackages.konsole
     ];
 
     xdg.configFile."konsolerc".source = ../../config/konsole/konsolerc;

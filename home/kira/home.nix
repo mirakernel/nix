@@ -74,7 +74,6 @@ in {
   my.hm.fonts.enable = true;
   my.hm.shell.enable = true;
   my.hm.ssh.enable = true;
-  my.hm.gns3.enable = true;
   my.hm.plasma.enable = true;
   my.hm.office.enable = true;
   my.hm.db.enable = true;
@@ -99,6 +98,7 @@ in {
   my.hm.sops.enable = false;
   my.hm.ai.enable = false;
   my.hm.social.enable = false;
+  my.hm.gns3.enable = false;
 
   dconf.enable = true;
   dconf.settings = {
