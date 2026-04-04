@@ -6,7 +6,6 @@
   config = lib.mkIf config.my.hm.js.enable {
     home.packages = with pkgs; [
       nodejs
-      nodePackages.npm
       pnpm
       yarn
       bun

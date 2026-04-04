@@ -1,8 +1,17 @@
-{ pkgs, ... }: {
-  programs.tmux = {
-    enable = true;
-    mouse = true;
-    extraConfig = ''
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.my.hm.tmux;
+in
+{
+  options.my.hm.tmux = {
+    enable = lib.mkEnableOption "настройка tmux";
+  };
+
+  config = lib.mkIf cfg.enable {
+    programs.tmux = {
+      enable = true;
+      mouse = true;
+      extraConfig = ''
       unbind-key -a -T root
 
       ##### Mouse support (needed after `unbind-key -a -T root`) #####
@@ -79,10 +88,11 @@
       set -g @continuum-save-interval '15'
       run '~/.config/tmux/plugins/tpm/tpm'
     '';
-  };
+    };
 
-  home.packages = with pkgs; [
-    wl-clipboard
-    xclip
-  ];
+    home.packages = with pkgs; [
+      wl-clipboard
+      xclip
+    ];
+  };
 }

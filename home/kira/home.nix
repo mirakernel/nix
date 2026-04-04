@@ -4,7 +4,8 @@ let
 in {
   imports = [
     ../../modules/home-manager/art.nix
-    ../../modules/home-manager/apps.nix
+    ../../modules/home-manager/social.nix
+    ../../modules/home-manager/notes.nix
     ../../modules/home-manager/gns3.nix
     ../../modules/home-manager/ai.nix
     ../../modules/home-manager/floorp.nix
@@ -58,15 +59,26 @@ in {
   };
 
   programs.home-manager.enable = true;
-  my.hm.ai.enable = true;
+  my.hm.ai.enable = false;
+  my.hm.art.enable = false;
+  my.hm.social.enable = true;
+  my.hm.notes.enable = true;
+  my.hm.floorp.enable = true;
+  my.hm.git.enable = true;
+  my.hm.syncthing.enable = true;
+  my.hm.nixvim.enable = true;
+  my.hm.tmux.enable = true;
+  my.hm.term.enable = true;
+  my.hm.passwd.enable = true;
+  my.hm.user-dirs.enable = true;
+  my.hm.fonts.enable = true;
   my.hm.shell.enable = true;
   my.hm.ssh.enable = true;
   my.hm.gns3.enable = true;
-  my.hm.sops.enable = true;
+  my.hm.sops.enable = false;
   my.hm.plasma.enable = true;
-  my.hm.vscodium.enable = true;
-  my.hm.vscodium.proxy.http = "http://localhost:2080";
-  my.hm.emacs.enable = true;
+  my.hm.vscodium.enable = false;
+  my.hm.emacs.enable = false;
   my.hm.office.enable = true;
   my.hm.db.enable = true;
   my.hm.archive.enable = true;

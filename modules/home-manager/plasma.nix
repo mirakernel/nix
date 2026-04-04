@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   wallpaper = ../../imgs/tsunami-kira-wallpaper-1.png;
 in {
@@ -7,6 +7,10 @@ in {
   };
 
   config = lib.mkIf config.my.hm.plasma.enable {
+    home.packages = with pkgs; [
+      kdePackages.krdc
+    ];
+
     xdg.configFile."konsolerc".source = ../../config/konsole/konsolerc;
     xdg.configFile."konsolesshconfig".source = ../../config/konsole/konsolesshconfig;
     xdg.dataFile."konsole/Mirakernel.colorscheme".source = ../../config/konsole/Mirakernel.colorscheme;

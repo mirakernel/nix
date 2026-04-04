@@ -1,4 +1,4 @@
-{ config, pkgs, nixvim, nur, plasma-manager, codex-cli-nix, playwright-web-flake, ... }: {
+{ config, pkgs, nixvim, nur, plasma-manager, codex-cli-nix, playwright-web-flake, sops-nix, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/firewall.nix
@@ -175,6 +175,7 @@
     "d /var/lib/AccountsService/users 0755 root root -"
     "L+ /var/lib/AccountsService/icons/${username} - - - - ${iconPath}"
     "f+ /var/lib/AccountsService/users/${username} 0600 root root - [User]\\nIcon=/var/lib/AccountsService/icons/${username}\\nSystemAccount=false\\n"
+    "z /var/lib/sops-nix/key.txt 0400 kira users - -"
     "d /home/kira/shared 0775 kira users -"
   ];
 
@@ -184,6 +185,7 @@
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "bak";
   home-manager.sharedModules = [
+    sops-nix.homeManagerModules.sops
     nixvim.homeModules.nixvim
     plasma-manager.homeModules.plasma-manager
   ];

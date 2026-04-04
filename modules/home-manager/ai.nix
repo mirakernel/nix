@@ -1,4 +1,4 @@
-{ config, lib, codex-cli-nix, playwright-web-flake, pkgs, ... }:
+{ config, lib, codex-cli-nix, pkgs, ... }:
 let
   system = pkgs.stdenv.hostPlatform.system;
   codexBase = codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -9,20 +9,52 @@ let
       pkgs.stdenv.cc.cc.lib
     ];
   });
-  playwrightDriver = playwright-web-flake.packages.${system}.playwright-driver;
-  playwrightBrowsersPath =
-    builtins.unsafeDiscardStringContext "${playwrightDriver.browsers}";
+  chromiumExecutable = "${pkgs.chromium}/bin/chromium";
+  sopsEnabled = lib.attrByPath [ "my" "hm" "sops" "enable" ] false config;
+  directusSopsConfig = lib.mkIf sopsEnabled {
+    sops = {
+      secrets."directus/token" = {
+        sopsFile = ../../secrets/directus.yaml;
+      };
+
+      templates."directus-mcp.env" = {
+        content = ''
+          DIRECTUS_MCP_TOKEN=${config.sops.placeholder."directus/token"}
+        '';
+      };
+    };
+  };
+  claudeDirectusSnippet = lib.optionalString sopsEnabled ''
+    ${pkgs.claude-code}/bin/claude mcp remove --scope user directus >/dev/null 2>&1 || true
+    if [ -r "$DIRECTUS_TOKEN_FILE" ]; then
+      DIRECTUS_TOKEN=$(${pkgs.coreutils}/bin/tr -d '\n' < "$DIRECTUS_TOKEN_FILE")
+      ${pkgs.claude-code}/bin/claude mcp add --scope user --transport http directus http://localhost:8055/mcp \
+        --header "Authorization: Bearer $DIRECTUS_TOKEN" >/dev/null 2>&1
+    fi
+  '';
+  codexDirectusSnippet = lib.optionalString sopsEnabled ''
+    ${codexPatched}/bin/codex mcp remove directus >/dev/null 2>&1 || true
+    if [ -r "$DIRECTUS_ENV_FILE" ]; then
+      set -a
+      . "$DIRECTUS_ENV_FILE"
+      set +a
+      ${codexPatched}/bin/codex mcp add directus --url http://localhost:8055/mcp --bearer-token-env-var DIRECTUS_MCP_TOKEN
+    fi
+  '';
 in {
   options.my.hm.ai = {
     enable = lib.mkEnableOption "AI-инструменты и MCP Playwright для пользователя";
+    claude.enable = lib.mkEnableOption "Claude Code для пользователя";
   };
 
-  config = lib.mkIf config.my.hm.ai.enable {
-    home.packages = [
+  config = lib.mkIf config.my.hm.ai.enable (lib.mkMerge [
+    directusSopsConfig
+    {
+      warnings = lib.optional (!sopsEnabled) "sops-nix отключен: Directus MCP не будет настроен для Claude/Codex.";
+
+      home.packages = [
       codexPatched
-      pkgs.claude-code
       pkgs.docker
-      playwrightDriver
       (pkgs.writeShellApplication {
         name = "claude-ssh-mcp-add";
         runtimeInputs = [ pkgs.jq ];
@@ -112,30 +144,30 @@ in {
             "$@"
         '';
       })
-    ];
+      ] ++ lib.optionals config.my.hm.ai.claude.enable [
+        pkgs.claude-code
+      ];
 
-    home.sessionVariables = {
-      PLAYWRIGHT_BROWSERS_PATH = "${playwrightDriver.browsers}";
-      PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
-      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
-    };
+      home.sessionVariables = {
+        PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+      };
 
-    home.activation.configureClaudePlaywright =
-      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        CLAUDE_CONFIG="$HOME/.claude.json"
+      home.activation.configureClaudePlaywright = lib.mkIf config.my.hm.ai.claude.enable
+        (lib.hm.dag.entryAfter (if sopsEnabled then [ "sops-nix" ] else [ "writeBoundary" ]) ''
+          CLAUDE_CONFIG="$HOME/.claude.json"
+          ${lib.optionalString sopsEnabled ''DIRECTUS_TOKEN_FILE="${config.sops.secrets."directus/token".path}"''}
 
-        if [ ! -f "$CLAUDE_CONFIG" ]; then
-          echo '{}' > "$CLAUDE_CONFIG"
-        fi
+          if [ ! -f "$CLAUDE_CONFIG" ]; then
+            echo '{}' > "$CLAUDE_CONFIG"
+          fi
 
-        CHROMIUM_DIR=$(ls ${playwrightBrowsersPath} | grep '^chromium-' | head -n 1)
+          if [ ! -x "${chromiumExecutable}" ]; then
+            echo "Не найден исполняемый файл chromium: ${chromiumExecutable}" >&2
+            exit 1
+          fi
 
-        if [ -z "$CHROMIUM_DIR" ]; then
-          echo "Не найден chromium в ${playwrightBrowsersPath}" >&2
-          exit 1
-        fi
-
-        ${pkgs.jq}/bin/jq --arg execPath "${playwrightBrowsersPath}/$CHROMIUM_DIR/chrome-linux64/chrome" '
+          ${pkgs.jq}/bin/jq --arg execPath "${chromiumExecutable}" '
           .mcpServers.playwright = {
             "type": "stdio",
             "command": "npx",
@@ -157,52 +189,56 @@ in {
             "command": "npx",
             "args": ["-y", "@upstash/context7-mcp@latest"]
           }
-        ' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp"
+          ' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp"
 
-        mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
+          mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
 
-        if docker mcp gateway run --help >/dev/null 2>&1; then
-          ${pkgs.jq}/bin/jq '
+          if docker mcp gateway run --help >/dev/null 2>&1; then
+            ${pkgs.jq}/bin/jq '
             .mcpServers.MCP_DOCKER = {
               "type": "stdio",
               "command": "docker",
               "args": ["mcp", "gateway", "run"]
             }
-          ' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp"
-        else
-          ${pkgs.jq}/bin/jq 'del(.mcpServers.MCP_DOCKER)' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp"
-        fi
+            ' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp"
+          else
+            ${pkgs.jq}/bin/jq 'del(.mcpServers.MCP_DOCKER)' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp"
+          fi
 
-        mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
-      '';
+          mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
 
-    home.activation.configureCodexMcp =
-      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        CODEX_CONFIG_DIR="$HOME/.codex"
+          ${claudeDirectusSnippet}
+        '');
 
-        mkdir -p "$CODEX_CONFIG_DIR"
-        CHROMIUM_DIR=$(ls ${playwrightBrowsersPath} | grep '^chromium-' | head -n 1)
+      home.activation.configureCodexMcp =
+        lib.hm.dag.entryAfter (if sopsEnabled then [ "sops-nix" ] else [ "writeBoundary" ]) ''
+          CODEX_CONFIG_DIR="$HOME/.codex"
+          ${lib.optionalString sopsEnabled ''DIRECTUS_ENV_FILE="${config.sops.templates."directus-mcp.env".path}"''}
 
-        if [ -z "$CHROMIUM_DIR" ]; then
-          echo "Не найден chromium в ${playwrightBrowsersPath}" >&2
-          exit 1
-        fi
+          mkdir -p "$CODEX_CONFIG_DIR"
+          if [ ! -x "${chromiumExecutable}" ]; then
+            echo "Не найден исполняемый файл chromium: ${chromiumExecutable}" >&2
+            exit 1
+          fi
 
-        ${codexPatched}/bin/codex mcp remove playwright >/dev/null 2>&1 || true
-        ${codexPatched}/bin/codex mcp add playwright --env PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true --env PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 --env PWMCP_PROFILES_DIR_FOR_TEST="$HOME/.local/share/playwright-mcp/profiles" -- \
-          npx @playwright/mcp@latest --browser chromium --executable-path "${playwrightBrowsersPath}/$CHROMIUM_DIR/chrome-linux64/chrome"
+          ${codexPatched}/bin/codex mcp remove playwright >/dev/null 2>&1 || true
+          ${codexPatched}/bin/codex mcp add playwright --env PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true --env PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 --env PWMCP_PROFILES_DIR_FOR_TEST="$HOME/.local/share/playwright-mcp/profiles" -- \
+            npx @playwright/mcp@latest --browser chromium --executable-path "${chromiumExecutable}"
 
-        ${codexPatched}/bin/codex mcp remove context7 >/dev/null 2>&1 || true
-        ${codexPatched}/bin/codex mcp add context7 -- \
-          npx -y @upstash/context7-mcp@latest
+          ${codexPatched}/bin/codex mcp remove context7 >/dev/null 2>&1 || true
+          ${codexPatched}/bin/codex mcp add context7 -- \
+            npx -y @upstash/context7-mcp@latest
 
-        ${codexPatched}/bin/codex mcp remove MCP_DOCKER >/dev/null 2>&1 || true
-        if docker mcp gateway run --help >/dev/null 2>&1; then
-          ${codexPatched}/bin/codex mcp add MCP_DOCKER -- \
-            docker mcp gateway run
-        fi
+          ${codexDirectusSnippet}
 
-        ${codexPatched}/bin/codex mcp remove ssh >/dev/null 2>&1 || true
-      '';
-  };
+          ${codexPatched}/bin/codex mcp remove MCP_DOCKER >/dev/null 2>&1 || true
+          if docker mcp gateway run --help >/dev/null 2>&1; then
+            ${codexPatched}/bin/codex mcp add MCP_DOCKER -- \
+              docker mcp gateway run
+          fi
+
+          ${codexPatched}/bin/codex mcp remove ssh >/dev/null 2>&1 || true
+        '';
+    }
+  ]);
 }

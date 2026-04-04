@@ -7,6 +7,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    networking.firewall.interfaces."docker0".allowedTCPPorts = [ 2080 ];
+
     programs.throne = {
       enable = true;
       tunMode.enable = true;

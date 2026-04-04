@@ -1,15 +1,22 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 {
-  xdg.userDirs = {
-    enable = true;
-    createDirectories = true;
-    desktop = "${config.home.homeDirectory}/desktop";
-    download = "${config.home.homeDirectory}/downloads";
-    documents = "${config.home.homeDirectory}/docs";
-    music = "${config.home.homeDirectory}/music";
-    pictures = "${config.home.homeDirectory}/imgs";
-    videos = "${config.home.homeDirectory}/videos";
-    templates = "${config.home.homeDirectory}/templates";
-    publicShare = "${config.home.homeDirectory}/shared";
+  options.my.hm.user-dirs = {
+    enable = lib.mkEnableOption "пользовательские каталоги XDG";
+  };
+
+  config = lib.mkIf config.my.hm.user-dirs.enable {
+    xdg.userDirs = {
+      enable = true;
+      createDirectories = true;
+      setSessionVariables = true;
+      desktop = "${config.home.homeDirectory}/desktop";
+      download = "${config.home.homeDirectory}/downloads";
+      documents = "${config.home.homeDirectory}/docs";
+      music = "${config.home.homeDirectory}/music";
+      pictures = "${config.home.homeDirectory}/imgs";
+      videos = "${config.home.homeDirectory}/videos";
+      templates = "${config.home.homeDirectory}/templates";
+      publicShare = "${config.home.homeDirectory}/shared";
+    };
   };
 }

@@ -13,6 +13,10 @@
 - `secrets/netbird.yaml.example` -> `secrets/netbird.yaml`
 - ключи: `netbird/mirakernel_setup_key`, `netbird/techmind_setup_key`
 
+Для Directus MCP используйте:
+- `secrets/directus.yaml.example` -> `secrets/directus.yaml`
+- ключ: `directus/token`
+
 Для удобного `sops -e ...` без `--age`:
 - укажите ваш `age1...` в `.sops.yaml`
 - после этого можно шифровать так: `sops -e secrets/netbird.yaml.example > secrets/netbird.yaml`
