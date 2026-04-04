@@ -9,13 +9,8 @@ in {
   config = lib.mkIf config.my.hm.plasma.enable {
     home.packages = with pkgs; [
       kdePackages.krdc
-      kdePackages.konsole
     ];
 
-    xdg.configFile."konsolerc".source = ../../config/konsole/konsolerc;
-    xdg.configFile."konsolesshconfig".source = ../../config/konsole/konsolesshconfig;
-    xdg.dataFile."konsole/Mirakernel.colorscheme".source = ../../config/konsole/Mirakernel.colorscheme;
-    xdg.dataFile."konsole/main.profile".source = ../../config/konsole/main.profile;
     xdg.dataFile."user-places.xbel".source = ../../config/dolphin/user-places.xbel;
 
     programs.plasma = {
@@ -267,7 +262,6 @@ in {
         plasmashell."switch to previous activity" = [ ];
         plasmashell."toggle do not disturb" = [ ];
         "services/emacsclient.desktop"._launch = [ ];
-        "services/org.kde.konsole.desktop"._launch = ["Meta+Return" "Ctrl+Alt+T"];
         "services/org.kde.spectacle.desktop".CurrentMonitorScreenShot = [ ];
         "services/org.kde.spectacle.desktop".OpenWithoutScreenshot = [ ];
         wacomtablet."Map to fullscreen" = "Meta+Ctrl+F";
