@@ -11,6 +11,7 @@ in {
 
   config = lib.mkIf config.my.hm.shell.enable {
     home.sessionPath = [
+      "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/.nix-profile/bin"
       "/etc/profiles/per-user/${config.home.username}/bin"
       "/nix/var/nix/profiles/default/bin"
@@ -34,7 +35,7 @@ in {
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       initContent = lib.mkBefore ''
-        export PATH="$HOME/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH"
+        export PATH="$HOME/.local/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH"
 
         if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
           . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
