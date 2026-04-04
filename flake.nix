@@ -12,7 +12,7 @@
       inputs.home-manager.follows = "home-manager";
     };
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim?ref=nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
